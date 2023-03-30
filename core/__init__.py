@@ -18,13 +18,21 @@ def create_app():
                 height = request.args.get('height')
             return height
             
-        
+        '''
+                === Parmeters to be passed into url string === 
+        If height is not specified, default value will be passed from function above
+        Accepted sizes are 256x256, 512x512 or 1024x1024
+
+        e.g. <img src='http://localhost:5000/?height=512&noun=dog&color=green&action=cooking'>
+            will provide a green image 512x512px of a dog cooking 
+        '''
         height = get_height()
         width = height
         noun = request.args.get('noun')
         color = request.args.get('color')
         action = request.args.get('action')
 
+        # create an image in the form of a URL that the image src attribute is redirected to
         def create_image(prompt):
             generation_response = openai.Image.create(
                 prompt=prompt,
